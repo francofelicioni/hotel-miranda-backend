@@ -5,7 +5,7 @@ import { getMessages, getMessage, addMessage, updateMessage, deleteMessage  } fr
 
 const path:string = 'contact';
 
-contactRouter.get(`/${path}`, getMessages)
+contactRouter.get(`${path}`, getMessages)
 contactRouter.get(`/${path}/:id`, getMessage)
 contactRouter.get(`/${path}`, addMessage)
 contactRouter.get(`/${path}/:id`, updateMessage)
