@@ -1,28 +1,25 @@
 import { Request, Response } from "express";
+import messages from '../db/contact.json'
 
 export const getMessages = (req: Request, res: Response) => {
-  res.send({ data: "Message list" });
+  return res.json({ messages: messages });
 };
 
 export const getMessage = (req: Request, res: Response) => {
   const { id } = req.params;
-  res.send({ data: `Message nª ${id}` });
+  return res.json({ message: messages.find((message) => message["id"] == id)});
 };
 
 export const addMessage = (req: Request, res: Response) => {
   const { data } = req.body;
-  console.log(data);
-  res.send({ data: `New message added` });
+  return res.json({ success: true, message: data });
 };
 
 export const updateMessage = (req: Request, res: Response) => {
-  const { id } = req.params;
   const { data } = req.body;
-  console.log(data);
-  res.send({ data: `Message nº${id} updated` });
+  return res.json({ success: true, message: data });
 };
 
 export const deleteMessage = (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send({ data: `Message nº${id} deleted` });
+  return res.json({ success: true });
 };
