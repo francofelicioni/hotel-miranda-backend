@@ -14,7 +14,7 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
             : res.json(
                 jwt.sign(
                   { user: { id: user.id, email: user.email } },
-                  "TOP_SECRET"
+                  "6Ez8tHcSkEA0plMsCC4W"
                 )
               )
         );

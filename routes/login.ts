@@ -3,8 +3,6 @@ const loginRouter = express.Router();
 
 import { postLogin } from '../controllers/login';
 
-const path: string = 'login';
-
-loginRouter.post(`/${path}`, postLogin)
+loginRouter.post(`/login`, postLogin)
 
 export default loginRouter;
