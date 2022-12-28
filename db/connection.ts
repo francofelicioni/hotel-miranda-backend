@@ -1,18 +1,24 @@
-// import { mysql } from 'mysql'
+import * as dotenv from 'dotenv';
+dotenv.config({path: '../.env'})
+import mysql from 'mysql';
 
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "dbuser",
-//   password: "s3kreee7",
-//   database: "my_db",
-// });
+const connection = mysql.createConnection({
+	host: process.env.HOST,
+	user: process.env.USER,
+	password: process.env.PASSWORD,
+	database: process.env.DB
+})
 
-// connection.connect();
+connection.connect()
 
-// connection.query("SELECT 1 + 1 AS solution", (err, rows, fields) => {
-//   if (err) throw err;
+function dbQuery (query, params) {
+	return new Promise ((resolve, reject) => {
+		connection.query (query, params, (error, results) => {
+			if (error)
+			reject (error);
+			resolve (results);
+		});
+	});
+}
 
-//   console.log("The solution is: ", rows[0].solution);
-// });
-
-// connection.end();
+module.exports = dbQuery;
