@@ -1,9 +1,9 @@
 export interface IContact {
-  id: string;
+  id?: string;
   customer: string;
   email: string;
   phone: string;
-  date: string;
+  date: Date;
   subject: string;
   comment: string;
   archived: boolean;

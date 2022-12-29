@@ -1,15 +1,13 @@
 export interface IRoom {
-  id: string;
-  full_name: string;
-  order_date: string;
-  check_in: string;
-  check_out: string;
-  room_number: number;
+  id?:  string | number;
+  images: string [];
   bed_type: string;
-  price: number;
-  offer: number;
-  offer_price: number;
-  facilities: object[];
+  room_number: number;
   description: string;
+  price: string;
+  offer: boolean;
+  offer_price: number;
+  cancellation: string;
+  facilities: string[];
   status: boolean;
 }
