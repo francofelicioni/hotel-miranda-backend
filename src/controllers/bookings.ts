@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bookings from "../../data/guests.json";
+import bookings from "../../data/bookings.json";
 
 export const getBookings = (req: Request, res: Response) => {
   return res.json({ bookings: bookings });
