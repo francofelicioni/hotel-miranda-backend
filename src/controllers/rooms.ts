@@ -12,7 +12,7 @@ export const getRoom = (req: Request, res: Response) => {
   });
 };
 
-export const addRoom = (req: Request, res: Response) => {
+export const addRooms = (req: Request, res: Response) => {
   const { data } = req.body;
   return res.json({ success: true, message: data });
 };

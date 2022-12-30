@@ -1,14 +1,14 @@
 import express from 'express';
-const bookingRouter = express.Router()
 import {getBookings, getBooking, addBooking ,updateBooking, deleteBooking} from '../controllers/bookings';
 
-//Routes
-const path:string = 'bookings';
+const bookingsRouter = express.Router()
 
-bookingRouter.get(`/${path}`, getBookings)
-bookingRouter.get(`/${path}/:id`, getBooking)
-bookingRouter.get(`/${path}`, addBooking)
-bookingRouter.get(`/${path}/:id`, updateBooking)
-bookingRouter.get(`/${path}/:id`, deleteBooking)
+//Bookings Route
 
-export default bookingRouter;
+bookingsRouter.get('/', getBookings)
+bookingsRouter.get('/:id', getBooking)
+bookingsRouter.get('/', addBooking)
+bookingsRouter.get('/', updateBooking)
+bookingsRouter.get('/',deleteBooking)
+
+export default bookingsRouter
