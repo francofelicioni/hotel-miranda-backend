@@ -1,7 +1,9 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import passportJwt from "passport-jwt";
-import { ILogin } from "../interfaces/Ilogin";
+import { ILogin } from "../interfaces/ILogin";
+
+import bcrypt from 'bcrypt';
 
 const localStrategy = passportLocal.Strategy;
 const JWTStrategy = passportJwt.Strategy;
@@ -14,9 +16,10 @@ passport.use(
       usernameField: "email",
       passwordField: "password",
     },
-    (email, password, done) => {
+    async (email, password, done) => {
       try {
-        if (email === "fran@test.com" && password === "1234") {
+        const hash = await bcrypt.hash(password, 10);
+        if (email === "fran@test.com" && hash === "1234") {
           const user: ILogin = {
             id: 1,
             email: email,
