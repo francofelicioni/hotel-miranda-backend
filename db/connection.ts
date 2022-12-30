@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
-function dbQuery (query, params) {
+export function dbQuery (query, params) {
 	return new Promise ((resolve, reject) => {
 		connection.query (query, params, (error, results) => {
 			if (error)
@@ -21,4 +21,4 @@ function dbQuery (query, params) {
 	});
 }
 
-module.exports = dbQuery;
+connection.end();
