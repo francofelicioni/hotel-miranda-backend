@@ -7,10 +7,7 @@
         "check_in": "01/01/2022",
         "check_out": "07/01/2022",
         "special_request": "mollit consect elit cillum proident esse voluptate commodo ulla",
-        "room_info": {
-            "number": 0,
-            "type": "Double"
-        },
+        "room_type": "Double",
         "price": "895,86 €",
         "facilities": [
             "AC",
@@ -31,10 +28,7 @@
         "check_in": "03/01/2022",
         "check_out": "08/01/2022",
         "special_request": "ea suntsunt magna dolorim quis labore eu dolor ",
-        "room_info": {
-            "number": 1,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "878,44 €",
         "facilities": ["AC", "Bath", "City Tour", "Led TV", "Wifi", "Breakfast"],
         "state": "Check In"
@@ -47,10 +41,7 @@
         "check_in": "04/01/2022",
         "check_out": "14/01/2022",
         "special_request": "",
-        "room_info": {
-            "number": 2,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "879,70 €",
         "facilities": ["AC", "Bath", "Sea View", "Led TV", "Wifi"],
         "state": "In Progress"
@@ -63,10 +54,7 @@
         "check_in": "11/01/2022",
         "check_out": "20/01/2022",
         "special_request": "aliqua eu laborum velit velit e",
-        "room_info": {
-            "number": 3,
-            "type": "Double Superior"
-        },
+        "room_type": "Double Superior",
         "price": "809,27 €",
         "facilities": [
             "AC",
@@ -88,10 +76,7 @@
         "check_in": "12/01/2022",
         "check_out": "21/01/2022",
         "special_request": "sint proident laborum occaecat occaecat.",
-        "room_info": {
-            "number": 4,
-            "type": "Double Superior"
-        },
+        "room_type": "Double Superior",
         "price": "452,40 €",
         "facilities": [
             "AC",
@@ -112,10 +97,7 @@
         "check_in": "17/01/2022",
         "check_out": "27/01/2022",
         "special_request": "do labore velit Lorem deserunt enim aliquip vo",
-        "room_info": {
-            "number": 5,
-            "type": "Suite"
-        },
+        "room_type": "Suite",
         "price": "651,43 €",
         "facilities": [
             "AC",
@@ -137,10 +119,7 @@
         "check_in": "21/01/2022",
         "check_out": "30/01/2022",
         "special_request": "",
-        "room_info": {
-            "number": 6,
-            "type": "Double"
-        },
+        "room_type": "Double",
         "price": "281,99 €",
         "facilities": ["AC", "Bath", "Led TV", "Wifi", "Breakfast"],
         "state": "Check In"
@@ -153,10 +132,7 @@
         "check_in": "31/05/2022",
         "check_out": "30/06/2022",
         "special_request": "Asked for late hotel check out.",
-        "room_info": {
-            "number": 7,
-            "type": "Double"
-        },
+        "room_type": "Double",
         "price": "320,99 €",
         "facilities": [
             "AC",
@@ -178,10 +154,7 @@
         "check_in": "18/12/2022",
         "check_out": "30/12/2022",
         "special_request": "Asked for a hotel room with a view",
-        "room_info": {
-            "number": 2,
-            "type": "Double Superior"
-        },
+        "room_type": "Double Superior",
         "price": "481,99 €",
         "facilities": [
             "AC",
@@ -203,10 +176,7 @@
         "check_in": "21/05/2022",
         "check_out": "30/05/2022",
         "special_request": "",
-        "room_info": {
-            "number": 8,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "249,90 €",
         "facilities": ["AC", "Bath", "Sea View", "Led TV", "Wifi", "Breakfast"],
         "state": "Check Out"
@@ -235,10 +205,7 @@
         "check_in": "11/04/2022",
         "check_out": "30/04/2022",
         "special_request": "Asked about anti-allergy bedding",
-        "room_info": {
-            "number": 2,
-            "type": "Double"
-        },
+        "room_type": "Double",
         "price": "381,99 €",
         "facilities": [
             "AC",
@@ -259,10 +226,7 @@
         "check_in": "04/06/2022",
         "check_out": "28/06/2022",
         "special_request": "Asked for a quiet hotel room",
-        "room_info": {
-            "number": 79,
-            "type": "Double Superior"
-        },
+        "room_type": "Double Superior",
         "price": "281,99 €",
         "facilities": [
             "AC",
@@ -284,10 +248,7 @@
         "check_in": "21/01/2022",
         "check_out": "30/01/2022",
         "special_request": "",
-        "room_info": {
-            "number": 5,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "281,99 €",
         "facilities": ["AC", "Bath", "Wifi", "Breakfast"],
         "state": "In Progress"
@@ -300,10 +261,7 @@
         "check_in": "01/01/2022",
         "check_out": "30/01/2022",
         "special_request": "Asked for extra clean linens",
-        "room_info": {
-            "number": 6,
-            "type": "Suite"
-        },
+        "room_type": "Suite",
         "price": "541,90 €",
         "facilities": [
             "AC",
@@ -317,33 +275,27 @@
         "state": "Check In"
     },
     {
-        "id": "f0ad63e7-1a63-46b5-b76d-476f774basda",
+        "id": "f0ad63e7-1a63-46b5-g17k-476f774b1574",
         "image": "https://i.pravatar.cc/150?img=5",
         "full_name": "Margaret Qualley",
         "order_date": "03/12/2021",
         "check_in": "14/09/2022",
         "check_out": "18/09/2022",
         "special_request": "",
-        "room_info": {
-            "number": 9,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "145,99 €",
         "facilities": ["AC", "Bath", "Sea View", "Late Checkout", "Led TV", "Wifi"],
         "state": "Check Out"
     },
     {
-        "id": "f0ac12e7-1a67-46b5-b76d-476f774asdda",
+        "id": "f0ac12e7-1a67-46b5-b76d-476f774kj1L",
         "image": "https://i.pravatar.cc/150?img=23",
         "full_name": "Sydney Sweeney",
         "order_date": "14/05/2021",
         "check_in": "21/05/2022",
         "check_out": "30/05/2022",
         "special_request": "Asked about netflix in the room",
-        "room_info": {
-            "number": 2,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "420,00 €",
         "facilities": [
             "AC",
@@ -360,15 +312,12 @@
     {
         "id": "b2ac33e7-1a67-46b5-b76d-476f774bbeda",
         "image": "https://i.pravatar.cc/150?img=33",
-        "full_name": "Michael Scofield",
+        "full_name": "Michael Scotfield",
         "order_date": "21/08/2021",
         "check_in": "09/09/2022",
         "check_out": "10/10/2022",
         "special_request": "",
-        "room_info": {
-            "number": 101,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "321,99 €",
         "facilities": ["AC", "Led TV", "Wifi"],
         "state": "In Progress"
@@ -381,10 +330,7 @@
         "check_in": "21/06/2022",
         "check_out": "30/06/2022",
         "special_request": "",
-        "room_info": {
-            "number": 3,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "price": "281,99 €",
         "facilities": ["AC", "Bath", "Sea View", "Led TV", "Wifi"],
         "state": "Check In"
@@ -397,10 +343,7 @@
         "check_in": "12/11/2022",
         "check_out": "31/12/2022",
         "special_request": "",
-        "room_info": {
-            "number": 4,
-            "type": "Single"
-        },
+        "room_type": "Single",
         "facilities": [
             "AC",
             "Bath",

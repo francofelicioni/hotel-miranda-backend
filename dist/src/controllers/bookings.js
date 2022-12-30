@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.getBooking = exports.getBookings = void 0;
-const guests_json_1 = __importDefault(require("../../data/guests.json"));
+const bookings_json_1 = __importDefault(require("../../data/bookings.json"));
 const getBookings = (req, res) => {
-    return res.json({ bookings: guests_json_1.default });
+    return res.json({ bookings: bookings_json_1.default });
 };
 exports.getBookings = getBookings;
 const getBooking = (req, res) => {
     const { id } = req.params;
-    return res.json({ booking: guests_json_1.default.find((booking) => booking["id"] == id) });
+    return res.json({ booking: bookings_json_1.default.find((booking) => booking["id"] == id) });
 };
 exports.getBooking = getBooking;
 const addBooking = (req, res) => {

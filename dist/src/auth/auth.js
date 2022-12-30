@@ -6,15 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const passport_jwt_1 = __importDefault(require("passport-jwt"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const localStrategy = passport_local_1.default.Strategy;
 const JWTStrategy = passport_jwt_1.default.Strategy;
 const ExtractJwt = passport_jwt_1.default.ExtractJwt;
 passport_1.default.use("login", new localStrategy({
     usernameField: "email",
     passwordField: "password",
-}, (email, password, done) => {
+}, async (email, password, done) => {
     try {
-        if (email === "fran@test.com" && password === "1234") {
+        const hash = await bcrypt_1.default.hash(password, 10);
+        if (email === "fran@test.com" && hash === "1234") {
             const user = {
                 id: 1,
                 email: email,
