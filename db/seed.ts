@@ -3,6 +3,7 @@ import { IBooking } from "src/interfaces/IBookings";
 import { IContact } from "src/interfaces/IContact";
 import { IRoom } from "src/interfaces/IRooms";
 import { IUser } from "src/interfaces/IUsers";
+import { dbQuery } from "../db/connection";
 
 export function createRandomBooking(): IBooking {
   return {
@@ -31,9 +32,9 @@ export function createRandomBooking(): IBooking {
 export function createRandomRoom(): IRoom {
   return {
     images: faker.helpers.arrayElements([
-      faker.image.imageUrl(500, 500, "room", false),
-      faker.image.imageUrl(500, 500, "room", false),
-      faker.image.imageUrl(500, 500, "room", false),
+      faker.image.imageUrl(500, 500, "hotel room", false),
+      faker.image.imageUrl(500, 500, "hotel room", false),
+      faker.image.imageUrl(500, 500, "hotel room", false),
     ]),
     bed_type: faker.helpers.arrayElement([
       "Single",
@@ -85,3 +86,60 @@ export function createRandomContact(): IContact {
     archived: faker.datatype.boolean(),
   };
 }
+
+const bookingsGenerator = async (): Promise<void> => {
+  const newBookings = [];
+  for (let booking = 0; booking < 20; booking++) {
+    const randomBooking = createRandomBooking();
+    const newBooking = await dbQuery(
+      "INSERT INTO bookings (full_name, order_date, check_in, check_out, room_type, price, image, special_request, description, state) VALUES ?",
+      randomBooking
+    );
+    newBookings.push(newBooking);
+    console.log(newBookings);
+  }
+};
+
+const roomsGenerator = async (): Promise<void> => {
+  const newRooms = [];
+  for (let room = 0; room < 20; room++) {
+    const randomRoom = createRandomRoom();
+    const newRoom = await dbQuery(
+      "INSERT INTO rooms (images, bed_type, room_number, description, price, offer, offer_price, cancellation, facilities, status ) VALUES ?",
+      randomRoom
+    );
+    newRooms.push(newRoom);
+    console.log(newRooms);
+  }
+};
+
+const usersGenerator = async (): Promise<void> => {
+  const newUsers = [];
+  for (let user = 0; user < 20; user++) {
+    const randomUser = createRandomUser();
+    const newUser = await dbQuery(
+      "INSERT INTO users (image,  full_name, email, contact, description, start_date, status, password ) VALUES ?",
+      randomUser
+    );
+    newUsers.push(newUser);
+    console.log(newUsers);
+  }
+};
+
+const contactGenerator = async (): Promise<void> => {
+  const newContacts = [];
+  for (let contact = 0; contact < 20; contact++) {
+    const randomContact = createRandomContact();
+    const newContact = await dbQuery(
+      "INSERT INTO users (customer, email, phone, date, subject, comment, archived ) VALUES ?",
+      randomContact
+    );
+    newContacts.push(newContact);
+    console.log(newContacts);
+  }
+};
+
+bookingsGenerator();
+roomsGenerator();
+usersGenerator();
+contactGenerator();
