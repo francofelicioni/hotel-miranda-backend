@@ -9,5 +9,5 @@ export interface IBooking {
   image: string;
   special_request: string;
   description: string;
-  state: string [];
+  state: string;
 }

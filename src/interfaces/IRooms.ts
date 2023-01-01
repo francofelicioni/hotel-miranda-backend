@@ -1,6 +1,6 @@
 export interface IRoom {
   id?:  string | number;
-  images: string [];
+  images: string;
   bed_type: string;
   room_number: number;
   description: string;
@@ -8,6 +8,6 @@ export interface IRoom {
   offer: boolean;
   offer_price: number;
   cancellation: string;
-  facilities: string[];
+  facilities: string;
   status: boolean;
 }
