@@ -10,37 +10,20 @@ import("./auth/auth");
 
 const app = express();
 
-app.use(express.json());
-const PORT = 3000;
+app.use(express.json())
+const PORT = 3000
+
+app.use("/login", loginRouter);
+app.use("/bookings", passport.authenticate("jwt", { session: false }), bookingsRouter);
+app.use("/rooms", passport.authenticate("jwt", { session: false }), roomsRouter);
+app.use("/users", passport.authenticate("jwt", { session: false }), usersRouter);
+app.use("/contacts", passport.authenticate("jwt", { session: false }), contactsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server online and running on port: ${PORT}`);
 });
 
-app.use("/login", loginRouter);
-
-app.use(
-  "/bookings",
-  passport.authenticate("jwt", { session: false }),
-  bookingsRouter
-);
-app.use(
-  "/rooms",
-  passport.authenticate("jwt", { session: false }),
-  roomsRouter
-);
-app.use(
-  "/users",
-  passport.authenticate("jwt", { session: false }),
-  usersRouter
-);
-app.use(
-  "/contacts",
-  passport.authenticate("jwt", { session: false }),
-  contactsRouter
-);
-
-// catch 404 and forward to error handler
+// catch 404 and forward to error handlñer
 app.use(function (req, res, next) {
   next(createError(404));
 });
