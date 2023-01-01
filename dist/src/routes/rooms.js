@@ -11,8 +11,8 @@ const roomsRouter = express_1.default.Router();
 //Room routes//
 roomsRouter.get("/", rooms_1.getRooms);
 roomsRouter.get("/:id", rooms_1.getRoom);
-roomsRouter.post("/", rooms_1.postRooms);
-roomsRouter.put("/:id", rooms_1.putRoom);
+roomsRouter.post("/", rooms_1.addRooms);
+roomsRouter.put("/:id", rooms_1.updateRoom);
 roomsRouter.delete("/:id", rooms_1.deleteRoom);
 exports.default = roomsRouter;
 //# sourceMappingURL=rooms.js.map

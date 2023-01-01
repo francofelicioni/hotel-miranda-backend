@@ -1,33 +1,35 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.addUser = exports.getUser = exports.getUsers = void 0;
-const users_json_1 = __importDefault(require("../../data/users.json"));
-const getUsers = (req, res) => {
-    return res.json({ users: users_json_1.default });
+const connection_1 = require("src/db/connection");
+const getUsers = async (req, res) => {
+    const result = await (0, connection_1.dbQuery)("SELECT * FROM users", null);
+    return res.json({ users: result });
 };
 exports.getUsers = getUsers;
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
     const { id } = req.params;
-    return res.json({
-        user: users_json_1.default.find((user) => user["id"] == id),
-    });
+    const result = await (0, connection_1.dbQuery)(`SELECT * FROM users WHERE id = ${id}`, null);
+    return res.json({ user: result });
 };
 exports.getUser = getUser;
 const addUser = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, user: data });
+    const { user } = req.body;
+    (0, connection_1.dbQuery)(`INSERT INTO users SET ?`, user);
+    return res.json({ success: "User added", user: user });
 };
 exports.addUser = addUser;
 const updateUser = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, message: data });
+    const { id } = req.params;
+    const { user } = req.body;
+    (0, connection_1.dbQuery)(`UPDATE users SET WHERE id = ${id}`, user);
+    return res.json({ success: "User updated", user: user });
 };
 exports.updateUser = updateUser;
 const deleteUser = (req, res) => {
-    return res.json({ success: true });
+    const { id } = req.params;
+    (0, connection_1.dbQuery)(`DELETE FROM users WHERE id = ${id}`, null);
+    return res.json({ success: "User deleted" });
 };
 exports.deleteUser = deleteUser;
 //# sourceMappingURL=users.js.map

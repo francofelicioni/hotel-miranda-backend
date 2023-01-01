@@ -12,9 +12,8 @@ const ExtractJwt = passport_jwt_1.default.ExtractJwt;
 passport_1.default.use("login", new localStrategy({
     usernameField: "email",
     passwordField: "password",
-}, async (email, password, done) => {
+}, (email, password, done) => {
     try {
-        // const hash = await bcrypt.hash(password, 10);
         if (email === "fran@test.com" && password === "1234") {
             const user = {
                 id: 1,

@@ -1,31 +1,35 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMessage = exports.updateMessage = exports.addMessage = exports.getMessage = exports.getMessages = void 0;
-const contact_json_1 = __importDefault(require("../../data/contact.json"));
-const getMessages = (req, res) => {
-    return res.json({ messages: contact_json_1.default });
+const connection_1 = require("src/db/connection");
+const getMessages = async (req, res) => {
+    const results = await (0, connection_1.dbQuery)("SELECT * FROM contacts", null);
+    return res.json({ contacts: results });
 };
 exports.getMessages = getMessages;
-const getMessage = (req, res) => {
+const getMessage = async (req, res) => {
     const { id } = req.params;
-    return res.json({ message: contact_json_1.default.find((message) => message["id"] == id) });
+    const result = await (0, connection_1.dbQuery)(`SELECT * FROM contacts WHERE id = ${id}`, null);
+    return res.json({ contact: result });
 };
 exports.getMessage = getMessage;
 const addMessage = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, message: data });
+    const { contact } = req.body;
+    (0, connection_1.dbQuery)(`INSERT INTO contacts SET ?`, contact);
+    return res.json({ success: "Contact added", contact: contact });
 };
 exports.addMessage = addMessage;
 const updateMessage = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, message: data });
+    const { id } = req.params;
+    const { contact } = req.body;
+    (0, connection_1.dbQuery)(`UPDATE contacts SET ? WHERE id = ${id}`, contact);
+    return res.json({ success: "Contact updated", contact: contact });
 };
 exports.updateMessage = updateMessage;
 const deleteMessage = (req, res) => {
-    return res.json({ success: true });
+    const { id } = req.params;
+    (0, connection_1.dbQuery)(`DELETE FROM contacts WHERE id = ${id}`, null);
+    return res.json({ success: "Contact deleted" });
 };
 exports.deleteMessage = deleteMessage;
 //# sourceMappingURL=contact.js.map

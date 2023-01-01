@@ -1,31 +1,35 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.getBooking = exports.getBookings = void 0;
-const bookings_json_1 = __importDefault(require("../../data/bookings.json"));
-const getBookings = (req, res) => {
-    return res.json({ bookings: bookings_json_1.default });
+const connection_1 = require("src/db/connection");
+const getBookings = async (req, res) => {
+    const results = await (0, connection_1.dbQuery)("SELECT * FROM bookings", null);
+    return res.json({ bookings: results });
 };
 exports.getBookings = getBookings;
-const getBooking = (req, res) => {
+const getBooking = async (req, res) => {
     const { id } = req.params;
-    return res.json({ booking: bookings_json_1.default.find((booking) => booking["id"] == id) });
+    const result = await (0, connection_1.dbQuery)(`SELECT * FROM bookings where id = ${id}`, null);
+    return res.json({ booking: result });
 };
 exports.getBooking = getBooking;
 const addBooking = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, message: data });
+    const { booking } = req.body;
+    (0, connection_1.dbQuery)(`INSERT INTO bookings SET ?`, booking);
+    return res.json({ success: "Booking added", booking: booking });
 };
 exports.addBooking = addBooking;
 const updateBooking = (req, res) => {
-    const { data } = req.body;
-    return res.json({ success: true, message: data });
+    const { id } = req.params;
+    const { booking } = req.body;
+    (0, connection_1.dbQuery)(`UPDATE bookings SET ? where id = ${id}`, booking);
+    return res.json({ success: "Booking updated", booking: booking });
 };
 exports.updateBooking = updateBooking;
 const deleteBooking = (req, res) => {
-    return res.json({ success: true });
+    const { id } = req.params;
+    (0, connection_1.dbQuery)(`DELETE FROM bookings WHERE id = ${id}`, null);
+    return res.json({ success: "Booking deleted" });
 };
 exports.deleteBooking = deleteBooking;
 //# sourceMappingURL=bookings.js.map

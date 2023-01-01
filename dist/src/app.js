@@ -46,7 +46,7 @@ app.use("/contacts", passport_1.default.authenticate("jwt", { session: false }),
 app.listen(PORT, () => {
     console.log(`Server online and running on port: ${PORT}`);
 });
-// catch 404 and forward to error handler
+// catch 404 and forward to error handlñer
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));
 });
