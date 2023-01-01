@@ -1,15 +1,22 @@
-import express from 'express';
-const roomRouter = express.Router()
+import express from "express";
+const roomRouter = express.Router();
 
-import { getRooms, getRoom, addRoom, updateRoom, deleteRoom } from '../controllers/rooms';
+// import { getRooms, getRoom, addRoom, updateRoom, deleteRoom } from '../controllers/rooms';
+import {
+  getRooms,
+  getRoom,
+  addRooms,
+  updateRoom,
+  deleteRoom,
+} from "../controllers/rooms";
 
-//Routes
-const path: string = 'rooms';
+const roomsRouter = express.Router();
 
-roomRouter.get(`/${path}`, getRooms)
-roomRouter.get(`/${path}/:id`, getRoom)
-roomRouter.get(`/${path}`, addRoom)
-roomRouter.get(`/${path}/:id`, updateRoom)
-roomRouter.get(`/${path}/:id`, deleteRoom)
+//Room routes//
+roomsRouter.get("/", getRooms);
+roomsRouter.get("/:id", getRoom);
+roomsRouter.post("/", addRooms);
+roomsRouter.put("/:id", updateRoom);
+roomsRouter.delete("/:id", deleteRoom);
 
-export default roomRouter;
+export default roomsRouter;

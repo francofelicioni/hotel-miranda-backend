@@ -1,15 +1,16 @@
 import express from 'express';
-const usersRouter = express.Router()
-
 import { getUsers, getUser, addUser, updateUser, deleteUser } from '../controllers/users';
 
-const path:string = 'users';
+const usersRouter = express.Router()
 
-usersRouter.get(`/${path}`, getUsers)
-usersRouter.get(`/${path}/:id`, getUser)
-usersRouter.get(`/${path}`, addUser)
-usersRouter.get(`/${path}/:id`, updateUser)
-usersRouter.get(`/${path}/:id`, deleteUser)
+//Users Route
+
+usersRouter.get ('/', getUsers)
+usersRouter.get ('/:id', getUser)
+usersRouter.get ('/', addUser)
+usersRouter.get ('/', updateUser)
+usersRouter.get ('/', deleteUser)
+
 
 export default usersRouter;
 
