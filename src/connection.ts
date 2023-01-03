@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+dotenv.config();
 import mysql from "mysql";
 
 export const connection = mysql.createConnection({
@@ -19,3 +19,4 @@ export function dbQuery(query: string, params: object | null) {
     });
   });
 }
+

@@ -7,5 +7,5 @@ export interface IUser {
   description: string;
   start_date: Date;
   status: boolean;
-  password: string;
+  password: string | void;
 }

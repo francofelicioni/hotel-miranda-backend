@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMessage = exports.updateMessage = exports.addMessage = exports.getMessage = exports.getMessages = void 0;
-const connection_1 = require("src/db/connection");
+const connection_1 = require("../connection");
 const getMessages = async (req, res) => {
     const results = await (0, connection_1.dbQuery)("SELECT * FROM contacts", null);
     return res.json({ contacts: results });

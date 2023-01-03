@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { dbQuery } from "src/db/connection";
+import { dbQuery } from "../connection";
 
 export const getUsers = async (req: Request, res: Response) => {
   const result = await dbQuery("SELECT * FROM users", null);
@@ -12,10 +12,10 @@ export const getUser = async (req: Request, res: Response) => {
   return res.json({ user: result });
 };
 
-export const addUser = (req: Request, res: Response) => {
+export const addUsers = (req: Request, res: Response) => {
   const { user } = req.body;
-  dbQuery(`INSERT INTO users SET ?`, user);
-  return res.json({ success: "User added", user: user });
+  dbQuery(`INSERT INTO users SET ?`, user)
+  return res.json({ success: 'Room added', room: user });
 };
 
 export const updateUser = (req: Request, res: Response) => {

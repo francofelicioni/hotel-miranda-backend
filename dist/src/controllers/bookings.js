@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.getBooking = exports.getBookings = void 0;
-const connection_1 = require("src/db/connection");
+const connection_1 = require("../connection");
 const getBookings = async (req, res) => {
     const results = await (0, connection_1.dbQuery)("SELECT * FROM bookings", null);
     return res.json({ bookings: results });

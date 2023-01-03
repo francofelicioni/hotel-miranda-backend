@@ -6,10 +6,6 @@ import { IUser } from "src/interfaces/IUsers";
 import { dbQuery } from "./connection";
 import bcrypt from "bcrypt";
 
-const password = async (pass: string): Promise<string> => {
-  return await bcrypt.hash(pass, 10).then((result) => result);
-};
-
 export const createRandomBooking = (): IBooking => {
   return {
     full_name: faker.name.fullName(),
@@ -22,10 +18,9 @@ export const createRandomBooking = (): IBooking => {
       "Double Superior",
       "Suite",
     ]),
-    price: faker.commerce.price(300, 1000, 2, "€"),
+    price: faker.commerce.price(300, 1000, 2),
     image: faker.image.people(300, 300, false),
-    special_request: faker.lorem.words(30),
-    description: faker.lorem.words(15),
+    special_request: faker.lorem.words(15),
     state: faker.helpers.arrayElement(["Check In", "Check Out", "In Progress"]),
   };
 };
@@ -41,7 +36,7 @@ export const createRandomRoom = (): IRoom => {
     ]),
     room_number: faker.datatype.number({ min: 100, max: 990 }),
     description: faker.lorem.words(10),
-    price: faker.commerce.price(300, 1000, 2, "€"),
+    price: faker.commerce.price(300, 1000, 2),
     offer: faker.datatype.boolean(),
     offer_price: faker.datatype.number({ min: 5, max: 80 }),
     cancellation: faker.lorem.words(15),
@@ -61,16 +56,20 @@ export const createRandomRoom = (): IRoom => {
   };
 };
 
-export const createRandomUser = async (): Promise<IUser> => {
+const passwd = (pass: string): string => {
+  return bcrypt.hashSync(pass, 10);
+};
+
+export const createRandomUser =  (): IUser => {
   return {
     image: faker.image.avatar(),
     full_name: faker.name.fullName(),
     email: faker.internet.email(),
     contact: faker.phone.number(),
     description: faker.lorem.words(10),
-    start_date: faker.date.past(),
+    start_date: faker.date.past(1),
     status: faker.datatype.boolean(),
-    password: await password(faker.internet.password()),
+    password: passwd(faker.internet.password()),
   };
 };
 
@@ -81,16 +80,9 @@ export const createRandomContact = (): IContact => {
     phone: faker.phone.number(),
     date: faker.date.past(1),
     subject: faker.lorem.words(10),
-    comment: faker.lorem.words(30),
+    comment: faker.lorem.words(10),
     archived: faker.datatype.boolean(),
   };
-};
-
-const roomsCreator = (): void => {
-  for (let i = 0; i < 20; i++) {
-    const randomRoom = createRandomRoom();
-    dbQuery("INSERT INTO rooms SET ?", randomRoom);
-  }
 };
 
 const bookingsCreator = (): void => {
@@ -100,25 +92,34 @@ const bookingsCreator = (): void => {
   }
 };
 
-const usersCreator = (): void => {
+const roomsCreator = (): void => {
   for (let i = 0; i < 20; i++) {
-    const randomUser = createRandomUser();
-    dbQuery("INSERT INTO users SET ?", randomUser);
+    const randomRoom = createRandomRoom();
+    dbQuery("INSERT INTO rooms SET ?", randomRoom);
   }
 };
 
 const contactsCreator = (): void => {
   for (let i = 0; i < 20; i++) {
     const randomContact = createRandomContact();
-    dbQuery("INSERT INTO contacts SET ?", randomContact);
+    dbQuery("INSERT INTO messages SET ?", randomContact);
+  }
+};
+
+const usersCreator = (): void => {
+  for (let i = 0; i < 20; i++) {
+    const randomUser = createRandomUser();
+    dbQuery(`INSERT INTO users SET ?`, randomUser);
   }
 };
 
 const run = () => {
-  roomsCreator();
   bookingsCreator();
-  usersCreator();
+  roomsCreator();
   contactsCreator();
+  usersCreator();
 };
 
 run();
+
+// connection.end();

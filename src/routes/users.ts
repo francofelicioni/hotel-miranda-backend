@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, getUser, addUser, updateUser, deleteUser } from '../controllers/users';
+import { getUsers, getUser, addUsers, updateUser, deleteUser } from '../controllers/users';
 
 const usersRouter = express.Router()
 
@@ -7,7 +7,7 @@ const usersRouter = express.Router()
 
 usersRouter.get ('/', getUsers)
 usersRouter.get ('/:id', getUser)
-usersRouter.get ('/', addUser)
+usersRouter.get ('/', addUsers)
 usersRouter.get ('/', updateUser)
 usersRouter.get ('/', deleteUser)
 

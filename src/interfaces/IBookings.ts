@@ -8,6 +8,5 @@ export interface IBooking {
   price: string | number;
   image: string;
   special_request: string;
-  description: string;
   state: string;
 }

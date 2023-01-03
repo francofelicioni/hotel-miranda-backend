@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.addUser = exports.getUser = exports.getUsers = void 0;
-const connection_1 = require("src/db/connection");
+exports.deleteUser = exports.updateUser = exports.addUsers = exports.getUser = exports.getUsers = void 0;
+const connection_1 = require("../connection");
 const getUsers = async (req, res) => {
     const result = await (0, connection_1.dbQuery)("SELECT * FROM users", null);
     return res.json({ users: result });
@@ -13,12 +13,12 @@ const getUser = async (req, res) => {
     return res.json({ user: result });
 };
 exports.getUser = getUser;
-const addUser = (req, res) => {
+const addUsers = (req, res) => {
     const { user } = req.body;
     (0, connection_1.dbQuery)(`INSERT INTO users SET ?`, user);
-    return res.json({ success: "User added", user: user });
+    return res.json({ success: 'Room added', room: user });
 };
-exports.addUser = addUser;
+exports.addUsers = addUsers;
 const updateUser = (req, res) => {
     const { id } = req.params;
     const { user } = req.body;

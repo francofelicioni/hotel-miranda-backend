@@ -23,7 +23,7 @@ app.listen(PORT, () => {
   console.log(`Server online and running on port: ${PORT}`);
 });
 
-// catch 404 and forward to error handlñer
+// catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });

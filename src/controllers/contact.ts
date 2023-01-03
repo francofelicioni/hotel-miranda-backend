@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { dbQuery } from "src/db/connection";
+import { dbQuery } from "../connection";
 
 export const getMessages = async (req: Request, res: Response) => {
   const results = await dbQuery("SELECT * FROM contacts", null);
