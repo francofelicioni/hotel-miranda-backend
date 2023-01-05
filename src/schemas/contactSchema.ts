@@ -9,4 +9,4 @@ const contact = new mongoose.Schema ({
     comment: String
 })
 
-export const contactSchema = mongoose.model ('Contact', contact)
+export const contactModel = mongoose.model ('Contact', contact)

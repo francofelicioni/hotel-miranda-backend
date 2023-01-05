@@ -13,4 +13,4 @@ const booking = new mongoose.Schema ({
     state: String,
 })
 
-export const bookingSchema = mongoose.model('Booking', booking)
+export const bookingModel = mongoose.model('Booking', booking)

@@ -13,4 +13,4 @@ const room = new mongoose.Schema({
   status: Boolean,
 });
 
-export const roomSchema = mongoose.model("Room", room);
+export const roomModel = mongoose.model("Room", room);

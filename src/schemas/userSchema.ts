@@ -9,4 +9,4 @@ const user = new mongoose.Schema ({
     Comment: String,
 })
 
-export const userSchema = mongoose.model ('userSchema', user)
+export const userModel = mongoose.model ('userSchema', user)
