@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const roomRouter = express_1.default.Router();
 const rooms_1 = require("../controllers/rooms");
-//Routes
-const path = 'rooms';
-roomRouter.get(`/${path}`, rooms_1.getRooms);
-roomRouter.get(`/${path}/:id`, rooms_1.getRoom);
-roomRouter.get(`/${path}`, rooms_1.addRoom);
-roomRouter.get(`/${path}/:id`, rooms_1.updateRoom);
-roomRouter.get(`/${path}/:id`, rooms_1.deleteRoom);
-exports.default = roomRouter;
+const roomsRouter = express_1.default.Router();
+//Room routes//
+roomsRouter.get("/", rooms_1.getRooms);
+roomsRouter.get("/:id", rooms_1.getRoom);
+roomsRouter.post("/", rooms_1.addRoom);
+roomsRouter.put("/:id", rooms_1.updateRoom);
+roomsRouter.delete("/:id", rooms_1.deleteRoom);
+exports.default = roomsRouter;
 //# sourceMappingURL=rooms.js.map

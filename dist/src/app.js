@@ -35,11 +35,12 @@ const contact_1 = __importDefault(require("./routes/contact"));
 const login_1 = __importDefault(require("./routes/login"));
 const passport_1 = __importDefault(require("passport"));
 Promise.resolve().then(() => __importStar(require("./auth/auth")));
+Promise.resolve().then(() => __importStar(require('./connection')));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server online and running on port: ${PORT}`);
+app.listen(app.get('port'), () => {
+    console.log('Server online and running on port', app.get('port'));
 });
 app.use("/login", login_1.default);
 app.use("/bookings", passport_1.default.authenticate("jwt", { session: false }), bookings_1.default);
