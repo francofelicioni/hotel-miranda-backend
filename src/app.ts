@@ -8,14 +8,17 @@ import loginRouter from "./routes/login";
 import passport from "passport";
 import("./auth/auth");
 
+import ('./connection')
+
 const app = express();
 
 app.use(express.json());
 const PORT = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server online and running on port: ${PORT}`);
-});
+
+app.listen(app.get('port'), () => {
+  console.log('Server online and running on port', app.get('port'))
+})
 
 app.use("/login", loginRouter);
 
@@ -39,8 +42,6 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   contactsRouter
 );
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
