@@ -1,79 +1,117 @@
 import { NextFunction, Request, Response } from "express";
 import { connection, disconnect } from "src/connection";
-import { IBookings } from "src/interfaces/bookings";
+import { IBooking } from "src/interfaces/bookings";
 import { bookingModel } from "src/schemas/bookingSchema";
 
-export const getBookings = async (req: Request, res: Response, next: NextFunction) => {
+export const getBookings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   await connection();
   try {
-    const bookings: IBookings[] = await bookingModel.find();
+    const bookings: IBooking[] = await bookingModel.find();
     res.json(bookings);
   } catch (err) {
-    next (err);
+    next(err);
   }
   await disconnect();
 };
 
-export const getBooking = async (req: Request, res: Response, next: NextFunction) => {
+export const getBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   await connection();
   const { id } = req.params;
   try {
-    const booking: IBookings[] = await bookingModel.findById(id);
+    const booking: IBooking[] = await bookingModel.findById(id);
     res.json(booking);
   } catch (err) {
-    next(err)
-  }
-  await disconnect();
-};
-
-export const addBooking = async (req: Request, res: Response, next: NextFunction) => {
-  await connection();
-  const booking = new bookingModel(req.body);
-
-  try {
-    const bookingToPost = await booking.save();
-    res.status(201).json({ bookingToPost });
-  } catch (err) {
-    res.status(400).send({
-      error: "Error, check the booking information.",
-    });
     next(err);
   }
   await disconnect();
 };
 
-export const updateBooking = async (req: Request, res: Response, next: NextFunction) => {
+export const addBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
+  try {
+    const booking = new bookingModel(req.body);
+    const bookingToAdd = await booking.save();
+    res.status(201).json({ bookingToAdd }); // Why is saved as an object?
+  } catch (err) {
+    if (err.status === 400) {
+      return res.status(400).json({
+        error: true,
+        message:
+          "Error while trying to add the room, check the booking information.",
+      });
+    } else {
+      next(err);
+    }
+  }
+  await disconnect();
+};
+
+export const updateBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   await connection();
   const { id } = req.params;
-  const booking: IBookings = req.body;
-
   try {
-    const bookingToUpdate = await bookingModel.findByIdAndUpdate({ _id: id }, booking);
+    const booking: IBooking = req.body;
+    const bookingToUpdate = await bookingModel.findByIdAndUpdate(
+      { _id: id },
+      booking
+    );
     res.status(201).json({
-      success: "Booking updated", booking: bookingToUpdate
+      success: "Booking updated",
+      booking: bookingToUpdate,
     });
   } catch (err) {
-    res.status(400).json({
-      error: "Error, check the booking information.",
-    });
-    next(err);
+    if (err.status === 404) {
+      return res.status(404).json({
+        error: true,
+        message: "Error, check the booking information.",
+      });
+    } else {
+      next(err);
+    }
   }
   await disconnect();
 };
 
-export const deleteBooking = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   await connection();
-  const {id} = req.params;
+  const { id } = req.params;
 
   try {
-    const bookingToDelete : IBookings [] = await bookingModel.findOneAndDelete({'_id': id});
+    const bookingToDelete: IBooking = await bookingModel.findOneAndDelete({
+      _id: id,
+    });
     res.status(202).json({
-      success: `Booking ${id} was removed.`
-    })
+      success: `Booking ${id} was deleted.`,
+    });
   } catch (err) {
-    res.status(400).json({
-      error: 'Error, the booking could not be deleted.'
-    })
-    next(err);
+    if (err.status === 404) {
+      return res.status(404).json({
+        error: true,
+        message: "Error, the booking was not deleted.",
+      });
+    } else {
+      next(err);
+    }
   }
+  await disconnect();
 };

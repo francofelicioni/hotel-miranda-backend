@@ -1,27 +1,107 @@
-import { Request, Response } from "express";
-import rooms from "../../data/rooms.json";
+import { Request, Response, NextFunction } from "express";
+import { connection, disconnect } from "src/connection";
+import { IRoom } from "src/interfaces/rooms";
+import { roomModel } from "src/schemas/roomSchema";
 
-export const getRooms = (req: Request, res: Response) => {
-  return res.json({ rooms: rooms });
+export const getRooms = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
+  try {
+    const rooms: IRoom[] = await roomModel.find();
+    res.json(rooms);
+  } catch (err) {
+    next(err);
+  }
+  await disconnect();
 };
 
-export const getRoom = (req: Request, res: Response) => {
+export const getRoom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
   const { id } = req.params;
-  return res.json({
-    room: rooms.find((room) => room["id"] == id),
-  });
+  try {
+    const room: IRoom[] = await roomModel.findById(id);
+    res.json(room);
+  } catch (err) {
+    next(err);
+  }
+  await disconnect();
 };
 
-export const addRoom = (req: Request, res: Response) => {
-  const { data } = req.body;
-  return res.json({ success: true, message: data });
+export const addRoom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
+  try {
+    const room = new roomModel(req.body);
+    const roomToPost = await room.save();
+    res.status(202).json({ roomToPost });
+  } catch (err) {
+    if (err.status === 404) {
+      return res.status(404).json({
+        error: true,
+        message: "Error while trying to add the room, check the information",
+      });
+    } else {
+      next(err);
+    }
+  }
 };
 
-export const updateRoom = (req: Request, res: Response) => {
-  const { data } = req.body;
-  return res.json({ success: true, message: data });
+export const updateRoom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
+  const { id } = req.params;
+  try {
+    const room: IRoom = req.body;
+    const roomToUpdate = await roomModel.findByIdAndUpdate({ _id: id }, room);
+    res.status(201).json({
+      success: "Room Updated",
+      room: roomToUpdate,
+    });
+  } catch (err) {
+    if (err.status === 404) {
+      return res.status(404).json({
+        error: true,
+        message: "Error while updating. Room did not saved",
+      });
+    } else {
+      next(err);
+    }
+  }
 };
 
-export const deleteRoom = (req: Request, res: Response) => {
-  return res.json({ success: true });
+export const deleteRoom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await connection();
+  const { id } = req.params;
+  try {
+    const roomToDelete: IRoom = await roomModel.findByIdAndDelete({ _id: id });
+    res.status(202).json({
+      success: `Room ${id} was deleted.`,
+    });
+  } catch (err) {
+    if (err.status === 404) {
+      return res.status(404).json({
+        error: true,
+        message: "Error. Room was not deleted.",
+      });
+    } else {
+      next(err);
+    }
+  }
 };
