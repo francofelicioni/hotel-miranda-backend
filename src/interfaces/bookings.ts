@@ -1,4 +1,4 @@
-export interface IBookings {
+export interface IBooking {
   id?: string;
   full_name: string;
   order_date: Date;
