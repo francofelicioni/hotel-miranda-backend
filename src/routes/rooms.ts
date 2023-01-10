@@ -1,5 +1,4 @@
 import express from "express";
-const roomRouter = express.Router();
 
 import {
   getRooms,

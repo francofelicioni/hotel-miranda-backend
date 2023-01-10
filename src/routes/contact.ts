@@ -7,8 +7,8 @@ const contactRouter = express.Router();
 
 contactRouter.get('/', getMessages)
 contactRouter.get('/:id', getMessage)
-contactRouter.get('/', addMessage)
-contactRouter.get('/', updateMessage)
-contactRouter.get('/', deleteMessage)
+contactRouter.post('/', addMessage)
+contactRouter.put('/:id', updateMessage)
+contactRouter.delete('/:id', deleteMessage)
 
 export default contactRouter;

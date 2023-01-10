@@ -7,8 +7,8 @@ const bookingsRouter = express.Router()
 
 bookingsRouter.get('/', getBookings)
 bookingsRouter.get('/:id', getBooking)
-bookingsRouter.get('/', addBooking)
-bookingsRouter.get('/', updateBooking)
-bookingsRouter.get('/',deleteBooking)
+bookingsRouter.post('/', addBooking)
+bookingsRouter.put('/:id', updateBooking)
+bookingsRouter.delete('/:id',deleteBooking)
 
 export default bookingsRouter
