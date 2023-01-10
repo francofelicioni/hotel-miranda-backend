@@ -5,7 +5,7 @@ export interface IBooking {
   check_in: Date;
   check_out: Date;
   room_type: string;
-  price: string;
+  price: number;
   image: string;
   special_request: string;
   description: string;
