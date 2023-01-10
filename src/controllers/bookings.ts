@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { connection, disconnect } from "src/connection";
+import { connection, disconnect } from "../connection";
 import { IBooking } from "src/interfaces/bookings";
-import { bookingModel } from "src/schemas/bookingSchema";
+import { bookingModel } from "../schemas/bookingSchema";
 
 export const getBookings = async (
   req: Request,
@@ -34,6 +34,7 @@ export const getBooking = async (
   await disconnect();
 };
 
+//POST
 export const addBooking = async (
   req: Request,
   res: Response,
@@ -42,8 +43,10 @@ export const addBooking = async (
   await connection();
   try {
     const booking = new bookingModel(req.body);
+    console.log('THIS IS BOOKING', booking)
     const bookingToAdd = await booking.save();
-    res.status(201).json({ bookingToAdd }); // Why is saved as an object?
+    console.log('THIS IS BOOKING TO ADD', bookingToAdd)
+    res.status(201).json({ bookingToAdd });
   } catch (err) {
     if (err.status === 400) {
       return res.status(400).json({
@@ -58,6 +61,7 @@ export const addBooking = async (
   await disconnect();
 };
 
+//PUT
 export const updateBooking = async (
   req: Request,
   res: Response,
@@ -67,10 +71,12 @@ export const updateBooking = async (
   const { id } = req.params;
   try {
     const booking: IBooking = req.body;
-    const bookingToUpdate = await bookingModel.findByIdAndUpdate(
+    console.log("THIS IS BOOKING", booking);
+    const bookingToUpdate = await bookingModel.findOneAndUpdate(
       { _id: id },
       booking
     );
+    console.log("THIS IS BOOKING TO UPDATE", bookingToUpdate);
     res.status(201).json({
       success: "Booking updated",
       booking: bookingToUpdate,
@@ -95,7 +101,6 @@ export const deleteBooking = async (
 ) => {
   await connection();
   const { id } = req.params;
-
   try {
     const bookingToDelete: IBooking = await bookingModel.findOneAndDelete({
       _id: id,

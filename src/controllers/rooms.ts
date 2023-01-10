@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { connection, disconnect } from "src/connection";
+import { connection, disconnect } from "../connection";
 import { IRoom } from "src/interfaces/rooms";
-import { roomModel } from "src/schemas/roomSchema";
+import { roomModel } from "../schemas/roomSchema";
 
 export const getRooms = async (
   req: Request,
@@ -34,6 +34,8 @@ export const getRoom = async (
   await disconnect();
 };
 
+
+//POST
 export const addRoom = async (
   req: Request,
   res: Response,
@@ -54,20 +56,25 @@ export const addRoom = async (
       next(err);
     }
   }
+  await disconnect();
 };
 
+
+//PUT
 export const updateRoom = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   await connection();
-  const { id } = req.params;
   try {
+    const { id } = req.params;
     const room: IRoom = req.body;
-    const roomToUpdate = await roomModel.findByIdAndUpdate({ _id: id }, room);
+    console.log('THIS IS ROOM', room);
+    const roomToUpdate = await roomModel.findOneAndUpdate({_id: id }, room);
+    console.log('THIS IS ROOM to update', roomToUpdate);
     res.status(201).json({
-      success: "Room Updated",
+      success: "Room updated successfully",
       room: roomToUpdate,
     });
   } catch (err) {
@@ -80,6 +87,7 @@ export const updateRoom = async (
       next(err);
     }
   }
+  await disconnect();
 };
 
 export const deleteRoom = async (
@@ -104,4 +112,5 @@ export const deleteRoom = async (
       next(err);
     }
   }
+  await disconnect();
 };

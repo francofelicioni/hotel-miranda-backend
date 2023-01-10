@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { connection, disconnect } from "src/connection";
+import { connection, disconnect } from "../connection";
 import { IBooking } from "src/interfaces/bookings";
 import { IContact } from "src/interfaces/contact";
-import { contactModel } from "src/schemas/contactSchema";
+import { contactModel } from "../schemas/contactSchema";
 
 export const getMessages = async (
   req: Request,
@@ -35,6 +35,7 @@ export const getMessage = async (
   await disconnect();
 };
 
+//POST
 export const addMessage = async (
   req: Request,
   res: Response,
@@ -58,6 +59,7 @@ export const addMessage = async (
   await disconnect();
 };
 
+//PUT
 export const updateMessage = async (
   req: Request,
   res: Response,
@@ -68,7 +70,7 @@ export const updateMessage = async (
 
   try {
     const contact: IContact = req.body;
-    const contactToUpdate = await contactModel.findByIdAndUpdate(
+    const contactToUpdate = await contactModel.findOneAndUpdate(
       { _id: id },
       contact
     );
