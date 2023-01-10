@@ -1,8 +1,8 @@
 import { connection, disconnect } from './connection'
 import { faker } from "@faker-js/faker";
-import password from './utils/bcryptPass';
+import bcryptPass from './utils/bcryptPass';
 
-import { IBookings } from "./interfaces/bookings";
+import { IBooking } from "./interfaces/bookings";
 import { IRoom } from "./interfaces/rooms";
 import { IContact } from "./interfaces/contact";
 import { IUser } from "./interfaces/users";
@@ -12,7 +12,7 @@ import { userModel } from './schemas/userSchema';
 import { contactModel } from './schemas/contactSchema';
 
 
-export const createRandomBooking = (): IBookings => {
+export const createRandomBooking = (): IBooking => {
   return {
     full_name: faker.name.fullName(),
     order_date: faker.date.past(1),
@@ -24,7 +24,7 @@ export const createRandomBooking = (): IBookings => {
       "Double Superior",
       "Suite",
     ]),
-    price: faker.commerce.price(300, 1000, 2, "€"),
+    price: faker.datatype.number({ min: 150, max: 1000, precision: 0.01 }),
     image: faker.image.people(300, 300, false),
     special_request: faker.lorem.words(30),
     description: faker.lorem.words(15),
@@ -43,7 +43,7 @@ export const createRandomRoom = (): IRoom => {
     ]),
     room_number: faker.datatype.number({ min: 100, max: 990 }),
     description: faker.lorem.words(10),
-    price: faker.commerce.price(300, 1000, 2, "€"),
+    price: faker.commerce.price(300, 1000, 2),
     offer: faker.datatype.boolean(),
     offer_price: faker.datatype.number({ min: 5, max: 80 }),
     cancellation: faker.lorem.words(15),
@@ -63,7 +63,7 @@ export const createRandomRoom = (): IRoom => {
   };
 };
 
-export const createRandomUser = async (): Promise<IUser> => {
+export const createRandomUser =  (): IUser => {
   return {
     image: faker.image.avatar(),
     full_name: faker.name.fullName(),
@@ -72,16 +72,16 @@ export const createRandomUser = async (): Promise<IUser> => {
     description: faker.lorem.words(10),
     start_date: faker.date.past(),
     status: faker.datatype.boolean(),
-    password: await password(faker.internet.password()),
+    password: bcryptPass(faker.internet.password()),
   };
 };
 
 export const createRandomContact = (): IContact => {
   return {
     customer: faker.name.fullName(),
-    email: faker.internet.email(),
     phone: faker.phone.number(),
     date: faker.date.past(1),
+    email: faker.internet.email(),
     subject: faker.lorem.words(10),
     comment: faker.lorem.words(30),
     archived: faker.datatype.boolean(),
