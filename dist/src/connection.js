@@ -30,11 +30,12 @@ exports.disconnect = exports.connection = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const MONGODB_URL = "mongodb://127.0.0.1:27017/hotel_miranda_backend";
+const MONGODB_URL = process.env.MONGO_URL;
 mongoose_1.default.set("strictQuery", false);
 async function connection() {
     try {
         await mongoose_1.default.connect(MONGODB_URL);
+        console.log('connected');
     }
     catch (err) {
         console.log(err);

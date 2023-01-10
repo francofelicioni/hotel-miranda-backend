@@ -9,8 +9,8 @@ const contactRouter = express_1.default.Router();
 //Contacts Route
 contactRouter.get('/', contact_1.getMessages);
 contactRouter.get('/:id', contact_1.getMessage);
-contactRouter.get('/', contact_1.addMessage);
-contactRouter.get('/', contact_1.updateMessage);
-contactRouter.get('/', contact_1.deleteMessage);
+contactRouter.post('/', contact_1.addMessage);
+contactRouter.put('/:id', contact_1.updateMessage);
+contactRouter.delete('/:id', contact_1.deleteMessage);
 exports.default = contactRouter;
 //# sourceMappingURL=contact.js.map

@@ -9,8 +9,8 @@ const usersRouter = express_1.default.Router();
 //Users Route
 usersRouter.get('/', users_1.getUsers);
 usersRouter.get('/:id', users_1.getUser);
-usersRouter.get('/', users_1.addUser);
-usersRouter.get('/', users_1.updateUser);
-usersRouter.get('/', users_1.deleteUser);
+usersRouter.post('/', users_1.addUser);
+usersRouter.put('/:id', users_1.updateUser);
+usersRouter.delete('/:id', users_1.deleteUser);
 exports.default = usersRouter;
 //# sourceMappingURL=users.js.map

@@ -34,19 +34,27 @@ const users_1 = __importDefault(require("./routes/users"));
 const contact_1 = __importDefault(require("./routes/contact"));
 const login_1 = __importDefault(require("./routes/login"));
 const passport_1 = __importDefault(require("passport"));
+const connection_1 = require("./connection");
+const cors_1 = __importDefault(require("cors"));
 Promise.resolve().then(() => __importStar(require("./auth/auth")));
-Promise.resolve().then(() => __importStar(require('./connection')));
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-const PORT = 3000;
-app.listen(app.get('port'), () => {
-    console.log('Server online and running on port', app.get('port'));
+const PORT = 3001;
+(0, connection_1.connection)();
+app.get("/", (req, res) => {
+    res.send("hello");
 });
 app.use("/login", login_1.default);
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: false }));
 app.use("/bookings", passport_1.default.authenticate("jwt", { session: false }), bookings_1.default);
 app.use("/rooms", passport_1.default.authenticate("jwt", { session: false }), rooms_1.default);
 app.use("/users", passport_1.default.authenticate("jwt", { session: false }), users_1.default);
 app.use("/contacts", passport_1.default.authenticate("jwt", { session: false }), contact_1.default);
+app.listen(PORT, () => {
+    console.log("Server online and running on port", PORT);
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));

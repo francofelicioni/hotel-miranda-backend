@@ -23,7 +23,7 @@ const createRandomBooking = () => {
             "Double Superior",
             "Suite",
         ]),
-        price: faker_1.faker.commerce.price(300, 1000, 2, "€"),
+        price: faker_1.faker.datatype.number({ min: 150, max: 1000, precision: 0.01 }),
         image: faker_1.faker.image.people(300, 300, false),
         special_request: faker_1.faker.lorem.words(30),
         description: faker_1.faker.lorem.words(15),
@@ -42,7 +42,7 @@ const createRandomRoom = () => {
         ]),
         room_number: faker_1.faker.datatype.number({ min: 100, max: 990 }),
         description: faker_1.faker.lorem.words(10),
-        price: faker_1.faker.commerce.price(300, 1000, 2, "€"),
+        price: faker_1.faker.commerce.price(300, 1000, 2),
         offer: faker_1.faker.datatype.boolean(),
         offer_price: faker_1.faker.datatype.number({ min: 5, max: 80 }),
         cancellation: faker_1.faker.lorem.words(15),
@@ -60,7 +60,7 @@ const createRandomRoom = () => {
     };
 };
 exports.createRandomRoom = createRandomRoom;
-const createRandomUser = async () => {
+const createRandomUser = () => {
     return {
         image: faker_1.faker.image.avatar(),
         full_name: faker_1.faker.name.fullName(),
@@ -69,16 +69,16 @@ const createRandomUser = async () => {
         description: faker_1.faker.lorem.words(10),
         start_date: faker_1.faker.date.past(),
         status: faker_1.faker.datatype.boolean(),
-        password: await (0, bcryptPass_1.default)(faker_1.faker.internet.password()),
+        password: (0, bcryptPass_1.default)(faker_1.faker.internet.password()),
     };
 };
 exports.createRandomUser = createRandomUser;
 const createRandomContact = () => {
     return {
         customer: faker_1.faker.name.fullName(),
-        email: faker_1.faker.internet.email(),
         phone: faker_1.faker.phone.number(),
         date: faker_1.faker.date.past(1),
+        email: faker_1.faker.internet.email(),
         subject: faker_1.faker.lorem.words(10),
         comment: faker_1.faker.lorem.words(30),
         archived: faker_1.faker.datatype.boolean(),

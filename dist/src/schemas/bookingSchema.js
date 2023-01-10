@@ -6,16 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.bookingModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const booking = new mongoose_1.default.Schema({
-    image: String,
     full_name: String,
     order_date: Date,
     check_in: Date,
     check_out: Date,
-    special_request: String,
-    room_type: Number,
+    room_type: String,
     price: Number,
-    facilities: String,
+    image: String,
+    special_request: String,
+    description: String,
     state: String,
 });
-exports.bookingModel = mongoose_1.default.model('Booking', booking);
+exports.bookingModel = mongoose_1.default.model("Booking", booking);
 //# sourceMappingURL=bookingSchema.js.map
