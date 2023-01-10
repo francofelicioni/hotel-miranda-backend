@@ -3,6 +3,9 @@ import passportLocal from "passport-local";
 import passportJwt from "passport-jwt";
 import { ILogin } from "../interfaces/login";
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 const localStrategy = passportLocal.Strategy;
 const JWTStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
@@ -16,7 +19,7 @@ passport.use(
     },
     (email, password, done) => {
       try {
-        if (email === "fran@test.com" && password === "1234") {
+        if (email === process.env.AUTH_EMAIl && password === process.env.AUTH_PASSWORD) {
           const user: ILogin = {
             id: 1,
             email: email,
