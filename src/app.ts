@@ -6,21 +6,28 @@ import usersRouter from "./routes/users";
 import contactsRouter from "./routes/contact";
 import loginRouter from "./routes/login";
 import passport from "passport";
+import { connection } from "./connection";
+import cors from 'cors';
 import("./auth/auth");
-
-import ('./connection')
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
-const PORT = 3000;
+const PORT = 3001;
 
+connection();
 
-app.listen(app.get('port'), () => {
-  console.log('Server online and running on port', app.get('port'))
-})
+app.get("/", (req: Request, res: Response) => {
+  res.send("hello");
+});
 
 app.use("/login", loginRouter);
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
   "/bookings",
@@ -42,6 +49,10 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   contactsRouter
 );
+
+app.listen(PORT, () => {
+  console.log("Server online and running on port", PORT);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
