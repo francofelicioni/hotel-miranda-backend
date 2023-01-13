@@ -25,8 +25,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/login", loginRouter);
 
-app.use(express.json());
-
 app.use(express.urlencoded({ extended: false }));
 
 app.use(
@@ -68,4 +66,8 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.json("Error when trying to make the authorization");
+
+  console.log('err', err)
+  console.log('res', res)
+
 });
