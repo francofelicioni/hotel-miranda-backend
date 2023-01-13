@@ -43,9 +43,7 @@ export const addBooking = async (
   await connection();
   try {
     const booking = new bookingModel(req.body);
-    console.log('THIS IS BOOKING', booking)
     const bookingToAdd = await booking.save();
-    console.log('THIS IS BOOKING TO ADD', bookingToAdd)
     res.status(201).json({ bookingToAdd });
   } catch (err) {
     if (err.status === 400) {
@@ -71,12 +69,10 @@ export const updateBooking = async (
   const { id } = req.params;
   try {
     const booking: IBooking = req.body;
-    console.log("THIS IS BOOKING", booking);
     const bookingToUpdate = await bookingModel.findOneAndUpdate(
       { _id: id },
       booking
     );
-    console.log("THIS IS BOOKING TO UPDATE", bookingToUpdate);
     res.status(201).json({
       success: "Booking updated",
       booking: bookingToUpdate,

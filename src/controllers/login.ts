@@ -11,12 +11,12 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
       req.login(user, { session: false }, (error) =>
         error
           ? next(error)
-          : res.json(
-              jwt.sign(
+          : res.json({
+              token: jwt.sign(
                 { user: { id: user.id, email: user.email } },
                 "6Ez8tHcSkEA0plMsCC4W"
-              )
-            )
+              ),
+            })
       );
     } catch (error) {
       return next(error);

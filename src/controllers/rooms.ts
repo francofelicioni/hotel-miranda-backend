@@ -70,9 +70,7 @@ export const updateRoom = async (
   try {
     const { id } = req.params;
     const room: IRoom = req.body;
-    console.log('THIS IS ROOM', room);
     const roomToUpdate = await roomModel.findOneAndUpdate({_id: id }, room);
-    console.log('THIS IS ROOM to update', roomToUpdate);
     res.status(201).json({
       success: "Room updated successfully",
       room: roomToUpdate,
