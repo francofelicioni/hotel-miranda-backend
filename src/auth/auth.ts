@@ -2,8 +2,10 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import passportJwt from "passport-jwt";
 import { ILogin } from "../interfaces/login";
-
-import * as dotenv from 'dotenv';
+import * as bcrypt from "bcrypt";
+import * as dotenv from "dotenv";
+import { connection } from "../connection";
+import { userModel } from "../schemas/userSchema";
 dotenv.config();
 
 const localStrategy = passportLocal.Strategy;
@@ -17,17 +19,41 @@ passport.use(
       usernameField: "email",
       passwordField: "password",
     },
-    (email, password, done) => {
+    async (email: string, password: string, done) => {
+      await connection();
       try {
-        if (email === process.env.AUTH_EMAIl && password === process.env.AUTH_PASSWORD) {
-          const user: ILogin = {
-            id: 1,
-            email: email,
-          };
-          return done(null, user, { message: "Login successful" });
-        } else
-          return done(null, false, { message: "Incorrect login information" });
+        const currentUser = await userModel.findOne({ email: email }).exec();
+
+        if (!currentUser) {
+          done(new Error("Check your credentials please."));
+        }
+
+        const passwordOK = await bcrypt.compare(password, currentUser.password);
+
+        if (!passwordOK) {
+          if (
+            email === process.env.AUTH_EMAIl &&
+            password === process.env.AUTH_PASSWORD
+          ) {
+            const user: ILogin = {
+              id: 1,
+              email: email,
+            };
+            return done(null, user, { message: "Login successful" });
+          } else {
+            return done(new Error("Incorrect login information"), false, {
+              message: "Check your login credentials",
+            });
+          }
+        } else {
+          return done(
+            null,
+            { _id: currentUser._id, email: currentUser.email },
+            { message: "User logged successfully" }
+          );
+        }
       } catch (error) {
+        console.log(error);
         return done(error);
       }
     }
