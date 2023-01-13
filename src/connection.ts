@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const MONGODB_URL = process.env.MONGO_URL
+const MONGODB_URL = process.env.MONGO_URL_ATLAS
 
 mongoose.set("strictQuery", false);
 
