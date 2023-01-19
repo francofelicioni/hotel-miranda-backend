@@ -12,7 +12,7 @@ export const getMessages = async (
   await connection();
   try {
     const contacts: IContact[] = await contactModel.find();
-    res.json({ contacts });
+    res.json(contacts);
   } catch (err) {
     next(err);
   }
