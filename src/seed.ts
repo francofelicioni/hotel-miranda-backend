@@ -26,42 +26,40 @@ run();
 const roomSaved: Array<IRoom> = [];
 const userSaved: Array<IUser> = [];
 
-const roomsCreator = async (): Promise<void> => {
+async function roomsCreator(): Promise<void> {
   for (let i = 0; i < 20; i++) {
     const randomRoom: IRoom = await createRandomRoom();
     roomSaved.push(randomRoom);
     await roomModel.create(randomRoom);
   }
-};
+}
 
-const usersCreator = async (): Promise<void> => {
+async function usersCreator(): Promise<void> {
   for (let i = 0; i < 20; i++) {
     const randomUser: IUser = await createRandomUser();
     userSaved.push(randomUser);
     await userModel.create(randomUser);
   }
-};
+}
 
-const bookingsCreator = async (): Promise<void> => {
+async function bookingsCreator(): Promise<void> {
   for (let i = 0; i < 20; i++) {
-    const user: IUser =
-      userSaved[Math.round(Math.random() * userSaved.length - 1)];
-    const room: IRoom =
-      roomSaved[Math.round(Math.random() * roomSaved.length - 1)];
+    const user: IUser = userSaved[Math.round(Math.random() * users.length - 1)];
+    const room: IRoom = roomSaved[Math.round(Math.random() * rooms.length - 1)];
     const randomBooking: IBooking = await createRandomBooking(
       await addRoomToBooking(room),
       await addUserBooking(user)
     );
     await bookingModel.create(randomBooking);
   }
-};
+}
 
-const contactsCreator = async (): Promise<void> => {
+async function contactsCreator(): Promise<void> {
   for (let i = 0; i < 20; i++) {
     const randomContact: IContact = await createRandomContact();
     await contactModel.create(randomContact);
   }
-};
+}
 
 // Creator functions with fakerJS
 async function createRandomRoom(): Promise<IRoom> {
@@ -149,9 +147,9 @@ async function createRandomContact(): Promise<IContact> {
 async function addRoomToBooking(room: IRoom): Promise<IRoom> {
   const dbRoom = roomModel.findOne({ _id: room._id });
   return await dbRoom.exec().then((result) => result);
-}
+};
 
 async function addUserBooking(user: IUser): Promise<IUser> {
   const dbUser = userModel.findOne({ _id: user._id });
   return await dbUser.exec().then((result) => result);
-}
+};
